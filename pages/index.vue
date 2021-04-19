@@ -28,7 +28,7 @@
       v-if="$store.state.user"
       class="row"
     >
-      <div class="col-3 text-left text-white">
+      <div class="col-md-3 text-left text-white">
         <p>Click : {{ turns }}</p>
         <p>My Best : {{ myBest == 0 ? '-' : myBest }}</p>
         <p>Global Best : {{ globalBest }}</p>
@@ -37,11 +37,11 @@
           @click="resetGame()"
         >New game</button>
       </div>
-      <div class="col-9">
+      <div class="col-md-9">
         <div class="cards">
           <div class="row">
             <div
-              class="col-lg-3"
+              class="col-3"
               v-for="(card, index) in cards"
               :key="`card-${index}`"
             >
@@ -254,6 +254,7 @@ export default {
         await this.openCard(card);
         card.flipped = !card.flipped;
 
+        this.cards.splice(this.cards.length)
       }
       else if (flipCount == 1) {
 
@@ -273,6 +274,7 @@ export default {
 
           }, 200);
 
+          this.cards.splice(this.cards.length)
         } else {
           // Wrong match
           this.flipBackTimer = setTimeout(() => {
@@ -281,9 +283,9 @@ export default {
             this.clearFlips();
           }, 1000);
 
+          this.cards.splice(this.cards.length)
         }
       }
-      this.cards.splice(this.cards.length)
     },
     clearFlips () {
       _.map(this.cards, card => card.flipped = false);
@@ -293,7 +295,7 @@ export default {
       this.flipBackTimer = null;
     }
   },
-  mounted() {
+  mounted () {
     document.addEventListener('contextmenu', event => event.preventDefault());
   },
 
